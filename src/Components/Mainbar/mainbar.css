@@ -1,0 +1,46 @@
+.mainbar {
+    margin-top: 70px;
+  width: 100%; /* full width of main-content */
+  height: 100vh; /* full height of viewport */
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.mainbar.dark {
+  background-color: #1e1e2f;
+  color: #ffffff;
+}
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Default button style */
+.view-toggle button {
+  padding: 8px 16px;
+  border: none;
+  background-color: white; /* always white now */
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+/* Divider between buttons */
+.view-toggle button:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+/* Active (selected) button */
+.view-toggle button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Hover effect */
+.view-toggle button:hover {
+  background-color: #f0f0f0; /* light gray hover */
+}
