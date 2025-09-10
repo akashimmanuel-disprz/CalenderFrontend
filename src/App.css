@@ -1,0 +1,16 @@
+/* Full height flex container */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #121212; /* dark mode background */
+  color: #ffffff;
+}
+
+/* Main content on the right */
+.main-content {
+  flex: 1;                  /* takes remaining width */
+  padding: 20px;
+  overflow-y: auto;         /* scrollable separately if needed */
+  background-color: #181818; /* slightly different dark shade */
+}
