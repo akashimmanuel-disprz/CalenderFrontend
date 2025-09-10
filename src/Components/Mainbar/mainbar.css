@@ -1,4 +1,13 @@
-.mainbar {
+.mainbar.dark {
+    margin-top: 70px;
+  width: 100%; /* full width of main-content */
+  height: 100vh; /* full height of viewport */
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #1e1e2f;
+  color: #000000;
+}
+.mainbar.light {
     margin-top: 70px;
   width: 100%; /* full width of main-content */
   height: 100vh; /* full height of viewport */
@@ -7,11 +16,22 @@
   background-color: #ffffff;
   color: #000000;
 }
-
-.mainbar.dark {
-  background-color: #1e1e2f;
-  color: #ffffff;
+/* Dark mode buttons */
+.mainbar.dark .view-toggle button {
+  background-color: #2a2a40; /* same tone as calendar cells */
+  color: #ddd;
+  border: 1px solid #3a3a4f;
 }
+
+.mainbar.dark .view-toggle button:hover {
+  background-color: #3a3a4f;
+}
+
+.mainbar.dark .view-toggle button.active {
+  background-color: #4caf50; /* keep active as green */
+  color: #fff;
+}
+
 .view-toggle {
   display: inline-flex;
   border: 1px solid #ccc;

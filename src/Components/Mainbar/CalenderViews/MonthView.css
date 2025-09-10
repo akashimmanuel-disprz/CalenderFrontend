@@ -1,0 +1,152 @@
+.month-view {
+  justify-content: center;
+  padding: 20px;
+}
+.month-grid.light {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+  gap: 10px;
+  width: 100%;
+}
+.month-grid.dark {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+  gap: 10px;
+  width: 100%;
+}
+
+.month-cell {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-height: 80px;
+  position: relative;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.event {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.more-events {
+  display: block;
+  font-size: 10px;
+  color: #fff;
+  margin-top: 2px;
+}
+.month-view.dark .month-cell.dark {
+  background-color: #2a2a40 !important; /* softer dark instead of pure black */
+  color: #ddd; /* off-white text */
+  border: 1px solid #3a3a4f;
+}
+
+.month-view.dark .event {
+  background-color: #3f784c; /* muted green for events */
+  color: #fff;
+}
+
+.month-view.dark .month-cell.dark:hover {
+  background-color: #3a3a4f; /* slightly lighter on hover */
+}
+
+/* Light mode */
+.month-view.light .month-cell.light {
+  background-color: #e5e5e5;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.month-view.light .event {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.month-view.light .month-cell.light:hover {
+  background-color: #7ac4d7;
+}
+
+/* Dark mode */
+/* Dark mode cells */
+.month-view.dark .month-cell {
+  background-color: #2a2a40; /* softer dark instead of pure black */
+  color: #ddd; /* off-white text */
+  border: 1px solid #3a3a4f;
+}
+
+.month-view.dark .event {
+  background-color: #3f784c; /* muted green for events */
+  color: #fff;
+}
+
+.month-view.dark .month-cell:hover {
+  background-color: #3a3a4f; /* slightly lighter on hover */
+}
+
+
+/* Highlight today */
+.month-cell.today {
+  border: 2px solid #ff9800;
+}
+/* Month header */
+.month-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.month-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Buttons shared */
+.month-header button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+/* Light mode buttons */
+.month-view.light .month-header button {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.month-view.light .month-header button:hover:not(:disabled) {
+  background-color: #cfcfcf;
+}
+
+/* Dark mode buttons */
+.month-view.dark .month-header button {
+  background-color: #3a3a4f;
+  color: #ddd;
+}
+
+.month-view.dark .month-header button:hover:not(:disabled) {
+  background-color: #4a4a63;
+}
+
+.month-header button:disabled {
+  opacity: 0.4;
+  cursor: not-a
+}
+/* Month title in header */
+.month-view.light .month-header h2 {
+  color: #000; /* black for light mode */
+}
+
+.month-view.dark .month-header h2 {
+  color: #ddd; /* off-white for dark mode */
+}

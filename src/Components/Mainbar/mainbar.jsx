@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./MainBar.css";
+import MonthView from "./CalenderViews/MonthView";
 
-function MainBar({ darkMode }) {
+function MainBar({ darkMode, events = [] }) {
   const [activeView, setActiveView] = useState("month"); // default = month
 
   return (
     <div className={darkMode ? "mainbar dark" : "mainbar light"}>
+      {/* View toggle buttons */}
       <div className="view-toggle">
         <button
           className={activeView === "month" ? "active" : ""}
@@ -25,6 +27,12 @@ function MainBar({ darkMode }) {
         >
           Daily
         </button>
+      </div>
+
+      {/* Calendar Views */}
+      <div className="calendar-container">
+        {activeView === "month" && <MonthView events={events} />}
+        {/* WeekView and DailyView can be added here later */}
       </div>
     </div>
   );
