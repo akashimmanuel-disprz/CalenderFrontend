@@ -1,0 +1,107 @@
+.week-view {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: sans-serif;
+}
+
+/* Top header: Days */
+.week-header {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr); /* first column = time */
+  margin-bottom: 2px;
+  z-index: 2;
+}
+
+.week-day {
+  text-align: center;
+  font-weight: bold;
+  padding: 5px 0;
+  background-color: #dcdcdc; /* light mode header */
+  border-bottom: 1px solid #999;
+}
+
+.week-view.dark .week-day {
+  background-color: #1a1a2e; /* darker dark mode header */
+  color: #ddd;
+  border-bottom: 1px solid #333;
+}
+
+/* Grid of hours */
+.week-grid {
+  display: grid;
+  grid-auto-rows: 60px; /* 1 hour per row */
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr); /* first column = time */
+  gap: 2px;
+}
+
+/* Time column: Hours */
+.time-column {
+  border: 1px solid #ccc;
+  text-align: center;
+  font-weight: bold;
+  background-color: #e0e0e0; /* light mode hour column */
+}
+
+.week-view.dark .time-column {
+  background-color: #111123; /* much darker hour column */
+  color: #ddd;
+  border: 1px solid #333;
+}
+
+/* Grid cells */
+.week-cell {
+  border: 1px solid #ccc;
+  position: relative;
+  background-color: #fff;
+}
+
+.week-view.dark .week-cell {
+  background-color: #0d0d1a; /* much darker cell background */
+  border: 1px solid #222;
+  color: #ddd;
+}
+
+/* Past days/hours */
+.week-cell.past {
+  opacity: 0.4;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.week-view.dark .week-cell.past {
+  background-color: rgba(0, 0, 0, 0.5); /* darker past hours/days */
+}
+
+/* Events inside cells */
+.week-cell .event {
+  border: 1px solid #4caf50;
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.week-view.dark .week-cell .event {
+  border: 1px solid #3f784c;
+  background-color: rgba(63, 120, 76, 0.2);
+  color: #00cb2f;
+}
+
+/* Optional: hover effect */
+.week-cell:hover {
+  background-color: rgba(200, 200, 200, 0.1);
+}
+
+.week-view.dark .week-cell:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}

@@ -150,3 +150,181 @@
 .month-view.dark .month-header h2 {
   color: #ddd; /* off-white for dark mode */
 }
+.month-cell.past {
+  opacity: 0.5 !important;
+  pointer-events: none !important; /* optional: prevent clicking */
+}
+
+.month-view {
+  justify-content: center;
+  padding: 20px;
+}
+
+.month-grid.light,
+.month-grid.dark {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+  gap: 10px;
+  width: 100%;
+}
+
+.month-cell {
+  border: 1px solid #ccc;
+  padding: 5px;
+  min-height: 80px;
+  position: relative;
+}
+
+.day-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.event {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.more-events {
+  display: block;
+  font-size: 10px;
+  color: #fff;
+  margin-top: 2px;
+}
+
+/* Past days */
+.month-cell.past {
+  opacity: 0.5;
+  pointer-events: none; /* optional: disable clicking */
+}
+
+/* Highlight today */
+.month-cell.today {
+  border: 2px solid #ff9800;
+}
+
+/* Month header */
+.month-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.month-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+/* Buttons shared */
+.month-header button {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.month-header button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Light mode buttons */
+.month-view.light .month-header button {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+.month-view.light .month-header button:hover:not(:disabled) {
+  background-color: #cfcfcf;
+}
+
+/* Dark mode buttons */
+.month-view.dark .month-header button {
+  background-color: #3a3a4f;
+  color: #ddd;
+}
+
+.month-view.dark .month-header button:hover:not(:disabled) {
+  background-color: #4a4a63;
+}
+
+/* Light mode */
+.month-view.light .month-cell.light {
+  background-color: #e5e5e5;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.month-view.light .event {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.month-view.light .month-cell.light:hover {
+  background-color: #7ac4d7;
+}
+
+/* Dark mode */
+.month-view.dark .month-cell.dark {
+  background-color: #2a2a40;
+  color: #ddd;
+  border: 1px solid #3a3a4f;
+}
+
+.month-view.dark .event {
+  background-color: #3f784c;
+  color: #fff;
+}
+
+.month-view.dark .month-cell.dark:hover {
+  background-color: #505065;
+}
+
+/* Month title colors */
+.month-view.light .month-header h2 {
+  color: #000;
+}
+
+.month-view.dark .month-header h2 {
+  color: #ddd;
+}
+.month-view.light .month-cell.today {
+  border: 4px solid #4ce7fe; /* blue for light mode */
+}
+
+.month-view.dark .month-cell.today {
+  border: 4px solid #ff9800; /* orange for dark mode */
+}
+/* Light mode events */
+.month-view.light .event {
+  border: 1px solid #4caf50;       /* green border */
+  background-color: rgba(76, 175, 80, 0.2); /* light green with transparency */
+  color: #02751d;                  /* green text */
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Dark mode events */
+.month-view.dark .event {
+  border: 1px solid #3f784c;       /* darker green border */
+  background-color: rgba(63, 120, 76, 0.2); /* light transparent green */
+  color: #02751d;                  /* dark green text */
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.month-view.light .event:hover {
+  background-color: rgba(76, 175, 80, 0.3); /* slightly darker on hover */
+}
+
+.month-view.dark .event:hover {
+  background-color: rgba(63, 120, 76, 0.3);
+}

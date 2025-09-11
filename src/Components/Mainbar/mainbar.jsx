@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./MainBar.css";
 import MonthView from "./CalenderViews/MonthView";
-
+import WeekView from "./CalenderViews/WeekView";
+import DailyView from "./CalenderViews/DailyView";
 function MainBar({ darkMode, events = [] }) {
   const [activeView, setActiveView] = useState("month"); // default = month
 
@@ -32,6 +33,8 @@ function MainBar({ darkMode, events = [] }) {
       {/* Calendar Views */}
       <div className="calendar-container">
         {activeView === "month" && <MonthView events={events} />}
+        {activeView === "week" && <WeekView darkMode={darkMode} events={events} />}
+        {activeView === "daily" && <DailyView darkMode={darkMode} events={events} />}
         {/* WeekView and DailyView can be added here later */}
       </div>
     </div>
