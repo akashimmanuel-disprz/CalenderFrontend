@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import LeftBar from "./Components/leftbar/LeftBar";
 import MainBar from "./Components/Mainbar/mainbar";
-import CreateAppointmentModal from "./Components/CreateAppoinmentModal"; // ✅ new import
+import CreateAppointmentModal from "./Components/CreateAppoinmentModal";
 import "./App.css";
 
 function App() {
@@ -10,17 +10,20 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  // Track selected date from LeftBar
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleSettings = () => setShowSettings(!showSettings);
 
   return (
     <div className={darkMode ? "app dark" : "app light"}>
       {/* Left Sidebar */}
-      <LeftBar darkMode={darkMode} />
+      <LeftBar darkMode={darkMode} onSelectDate={setSelectedDate} />
 
-      {/* MainBar occupies the entire right side */}
+      {/* Main content */}
       <div className="main-content">
-        {/* Top-left create button */}
+        {/* Top-left Create Appointment button */}
         <button
           className="create-appointment-btn"
           onClick={() => setShowModal(true)}
@@ -28,7 +31,7 @@ function App() {
           + Create Appointment
         </button>
 
-        {/* Top-right settings icon */}
+        {/* Top-right Settings */}
         <div className="settings-container">
           <FiSettings className="settings-icon" onClick={toggleSettings} />
           {showSettings && (
@@ -40,10 +43,10 @@ function App() {
           )}
         </div>
 
-        {/* Main content replaced by MainBar */}
-        <MainBar darkMode={darkMode} />
+        {/* Main Calendar Views */}
+        <MainBar darkMode={darkMode} selectedDate={selectedDate} />
 
-        {/* Show modal if state true */}
+        {/* Create Appointment Modal */}
         {showModal && (
           <CreateAppointmentModal onClose={() => setShowModal(false)} />
         )}

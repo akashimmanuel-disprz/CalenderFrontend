@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./LeftBar.css";
 
-function LeftBar({ darkMode }) {
+function LeftBar({ darkMode, onSelectDate }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
 
-  // Navigate dates
+  // Navigate to previous day
   const prevDay = () => {
     const yesterday = new Date(currentDate);
     yesterday.setDate(currentDate.getDate() - 1);
@@ -14,35 +14,42 @@ function LeftBar({ darkMode }) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (yesterday >= today) setCurrentDate(yesterday);
+    if (yesterday >= today) {
+      setCurrentDate(yesterday);
+      onSelectDate?.(yesterday); // notify MainBar
+    }
   };
 
+  // Navigate to next day
   const nextDay = () => {
-    setCurrentDate(new Date(currentDate.setDate(currentDate.getDate() + 1)));
+    const tomorrow = new Date(currentDate);
+    tomorrow.setDate(currentDate.getDate() + 1);
+    setCurrentDate(tomorrow);
+    onSelectDate?.(tomorrow); // notify MainBar
   };
 
   // Handle date picker
   const handleDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
+    const selected = new Date(e.target.value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (selectedDate >= today) setCurrentDate(selectedDate);
+    if (selected >= today) {
+      setCurrentDate(selected);
+      onSelectDate?.(selected); // notify MainBar
+    }
   };
 
   // Format date for display
-  const formatDate = (date) => {
-    return date.toLocaleDateString("en-US", {
+  const formatDateDisplay = (date) =>
+    date.toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
     });
-  };
 
   // Format date for API (YYYY-MM-DD)
-  const formatDateAPI = (date) => {
-    return date.toISOString().split("T")[0];
-  };
+  const formatDateAPI = (date) => date.toISOString().split("T")[0];
 
   // Fetch appointments whenever currentDate changes
   useEffect(() => {
@@ -51,10 +58,10 @@ function LeftBar({ darkMode }) {
         const res = await axios.get(
           `http://localhost:5025/api/events/date?day=${formatDateAPI(currentDate)}`
         );
-        setAppointments(res.data); // assuming your API returns an array of events
-      } catch (error) {
-        console.error("Error fetching appointments:", error);
-        setAppointments([]); // fallback
+        setAppointments(res.data);
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+        setAppointments([]);
       }
     };
 
@@ -72,11 +79,11 @@ function LeftBar({ darkMode }) {
       {/* Date navigator */}
       <div className="date-navigator">
         <button onClick={prevDay}>&lt;</button>
-        <span>{formatDate(currentDate)}</span>
+        <span>{formatDateDisplay(currentDate)}</span>
         <button onClick={nextDay}>&gt;</button>
       </div>
 
-      {/* Toolbox: Date picker */}
+      {/* Date picker */}
       <div className="toolbox">
         <input
           type="date"

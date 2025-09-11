@@ -16,6 +16,7 @@
   background-color: #ffffff;
   color: #000000;
 }
+
 /* Dark mode buttons */
 .mainbar.dark .view-toggle button {
   background-color: #2a2a40; /* same tone as calendar cells */

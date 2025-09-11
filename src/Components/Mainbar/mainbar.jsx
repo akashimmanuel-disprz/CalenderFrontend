@@ -1,15 +1,30 @@
-import React, { useState } from "react";
-import "./MainBar.css";
+import React, { useEffect, useState } from "react";
 import MonthView from "./CalenderViews/MonthView";
 import WeekView from "./CalenderViews/WeekView";
 import DailyView from "./CalenderViews/DailyView";
-function MainBar({ darkMode, events = [] }) {
-  const [activeView, setActiveView] = useState("month"); // default = month
+
+function MainBar({ darkMode, selectedDate }) {
+  const [activeView, setActiveView] = useState("month");
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  // Switch to Daily view when a date is selected from LeftBar
+  useEffect(() => {
+    if (selectedDate) {
+      setActiveView("daily");
+      setCurrentDate(selectedDate);
+    }
+  }, [selectedDate]);
+
+  // Optional: handle date selection inside MonthView
+  const handleDateSelect = (date) => {
+    setCurrentDate(date);
+    setActiveView("daily");
+  };
 
   return (
-    <div className={darkMode ? "mainbar dark" : "mainbar light"}>
+    <div className={darkMode ? "mainbar dark" : "mainbar light"} style={{marginTop:"40px"}}>
       {/* View toggle buttons */}
-      <div className="view-toggle">
+      <div className="view-toggle" style={{marginBottom:"30px"}}>
         <button
           className={activeView === "month" ? "active" : ""}
           onClick={() => setActiveView("month")}
@@ -30,12 +45,17 @@ function MainBar({ darkMode, events = [] }) {
         </button>
       </div>
 
-      {/* Calendar Views */}
+      {/* Calendar container */}
       <div className="calendar-container">
-        {activeView === "month" && <MonthView events={events} />}
-        {activeView === "week" && <WeekView darkMode={darkMode} events={events} />}
-        {activeView === "daily" && <DailyView darkMode={darkMode} events={events} />}
-        {/* WeekView and DailyView can be added here later */}
+        {activeView === "month" && (
+          <MonthView darkMode={darkMode} onSelectDate={handleDateSelect} />
+        )}
+        {activeView === "week" && (
+          <WeekView darkMode={darkMode} currentDate={currentDate} />
+        )}
+        {activeView === "daily" && (
+          <DailyView darkMode={darkMode} currentDate={currentDate} />
+        )}
       </div>
     </div>
   );
