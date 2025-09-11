@@ -9,8 +9,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  // Track selected date from LeftBar
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
@@ -18,20 +16,34 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app light"}>
-      {/* Left Sidebar */}
-      <LeftBar darkMode={darkMode} onSelectDate={setSelectedDate} />
+      {/* LeftBar */}
+      <LeftBar 
+        darkMode={darkMode} 
+        selectedDate={selectedDate} 
+        setSelectedDate={setSelectedDate} 
+      />
 
-      {/* Main content */}
+      {/* MainBar */}
       <div className="main-content">
-        {/* Top-left Create Appointment button */}
-        <button
-          className="create-appointment-btn"
-          onClick={() => setShowModal(true)}
-        >
-          + Create Appointment
-        </button>
+        <div className="top-bar">
+          <button
+            className="create-btn"
+            onClick={() => setShowModal(true)}
+          >
+            + Create Appointment
+          </button>
+        </div>
 
-        {/* Top-right Settings */}
+        <MainBar 
+          darkMode={darkMode} 
+          selectedDate={selectedDate} 
+        />
+
+        {showModal && (
+          <CreateAppointmentModal onClose={() => setShowModal(false)} />
+        )}
+
+        {/* Settings */}
         <div className="settings-container">
           <FiSettings className="settings-icon" onClick={toggleSettings} />
           {showSettings && (
@@ -42,14 +54,6 @@ function App() {
             </div>
           )}
         </div>
-
-        {/* Main Calendar Views */}
-        <MainBar darkMode={darkMode} selectedDate={selectedDate} />
-
-        {/* Create Appointment Modal */}
-        {showModal && (
-          <CreateAppointmentModal onClose={() => setShowModal(false)} />
-        )}
       </div>
     </div>
   );

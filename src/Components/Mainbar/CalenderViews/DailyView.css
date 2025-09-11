@@ -1,28 +1,29 @@
 .daily-view {
   position: relative;
-  padding: 10px;
-  font-family: sans-serif;
-  height: 1440px; /* 1px per minute default, scales with slot height */
-  overflow-y: scroll;
-  border: 1px solid #ccc;
-  background-color: #fff;
+  width: 100%;
+  height: calc(100vh - 100px);
+  padding-left: 60px; /* space for time labels */
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+}
+
+.daily-view.light {
+  background-color: #f5f5f5;
   color: #000;
 }
 
-/* Dark mode background */
 .daily-view.dark {
-  background-color: #0d0d1a;
-  color: #ddd;
-  border: 1px solid #222;
+  background-color: #121212;
+  color: #fff;
+  border-left: 1px solid #333;
 }
 
-/* Header with navigation */
 .daily-header {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .daily-header h2 {
@@ -32,10 +33,11 @@
 
 .daily-header button {
   padding: 5px 10px;
-  font-size: 18px;
-  border: none;
   border-radius: 6px;
+  border: none;
   cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
 .daily-header button:disabled {
@@ -43,99 +45,51 @@
   cursor: not-allowed;
 }
 
-/* Light mode buttons */
-.daily-view.light .daily-header button {
-  background-color: #e0e0e0;
-  color: #000;
-}
-
-.daily-view.light .daily-header button:hover:not(:disabled) {
-  background-color: #cfcfcf;
-}
-
-/* Dark mode buttons */
-.daily-view.dark .daily-header button {
-  background-color: #3a3a4f;
-  color: #ddd;
-}
-
-.daily-view.dark .daily-header button:hover:not(:disabled) {
-  background-color: #4a4a63;
-}
-
-/* Timeline container */
 .timeline-container {
   position: relative;
-  height: 2880px; /* scale for taller slots if needed */
-  width: 100%;
 }
 
-/* 30-minute slots */
 .time-slot {
   position: relative;
-  height: 60px; /* bigger vertical gap */
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .daily-view.dark .time-slot {
   border-bottom: 1px solid #333;
 }
 
-/* Time labels on the left */
-.time-label {
-  position: absolute;
-  left: 0;
-  width: 60px;
-  text-align: right;
-  padding-right: 5px;
-  font-size: 12px;
-  color: inherit;
+.time-slot.past {
+  opacity: 0.5;
 }
 
-/* Current time line */
+.time-label {
+  position: absolute;
+  left: -60px;
+  width: 50px;
+  text-align: right;
+  font-size: 12px;
+}
+
 .current-time-line {
   position: absolute;
   left: 0;
-  right: 0;
+  width: 100%;
   height: 2px;
   background-color: orange;
   z-index: 10;
 }
 
-/* Events */
-.event {
+.event-box {
   position: absolute;
-  left: 70px; /* offset for time labels */
-  right: 10px;
-  background-color: rgba(76, 175, 80, 0.3);
-  border: 1px solid #4caf50;
+  left: 0;
+  right: 0;
+  margin-left: 60px;
+  background-color: rgba(76, 175, 80, 0.8);
+  border: 2px solid #4caf50;
   border-radius: 4px;
-  padding: 2px 5px;
+  padding: 4px 6px;
   font-size: 12px;
-  color: #4caf50;
+  color: #fff;
   z-index: 5;
   overflow: hidden;
-}
-
-.daily-view.dark .event {
-  background-color: rgba(63, 120, 76, 0.3);
-  border: 1px solid #3f784c;
-  color: #3f784c;
-}
-
-.event-title {
-  font-weight: bold;
-}
-
-.event-time {
-  font-size: 10px;
-}
-
-/* Past times muted */
-.time-slot.past {
-  opacity: 0.4;
-}
-
-.daily-view.dark .time-slot.past {
-  background-color: rgba(0, 0, 0, 0.5);
 }

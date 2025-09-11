@@ -13,12 +13,12 @@
   width: 100%; /* span full width */
   padding: 15px;
   border-radius: 0;
-  background: #00ffff; /* neon blue */
+  background: #f5f4f4; /* neon blue */
   color: #000;
-  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; /* glow */
+  text-shadow: 0 0 5px #f5f4f4, 0 0 10px #f5f4f4; /* glow */
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid #00e0e0;
+  border-bottom: 2px solid #131313;
 }
 
 /* Title */
@@ -39,10 +39,10 @@
 
 /* Header - Dark mode */
 .leftbar.dark .header {
-  background: #00b3b3; /* darker neon blue */
+  background: #12122e; /* darker neon blue */
   color: #fff;
-  text-shadow: 0 0 5px #00b3b3, 0 0 10px #00b3b3;
-  border-bottom: 2px solid #009999;
+  text-shadow: 0 0 5px #b36e00, 0 0 10px #b36e00;
+  border-bottom: 2px solid #b36e00;
 }
 
 /* Date navigator */

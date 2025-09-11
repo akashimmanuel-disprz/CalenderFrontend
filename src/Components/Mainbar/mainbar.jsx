@@ -1,3 +1,4 @@
+// MainBar.jsx
 import React, { useEffect, useState } from "react";
 import MonthView from "./CalenderViews/MonthView";
 import WeekView from "./CalenderViews/WeekView";
@@ -22,9 +23,12 @@ function MainBar({ darkMode, selectedDate }) {
   };
 
   return (
-    <div className={darkMode ? "mainbar dark" : "mainbar light"} style={{marginTop:"40px"}}>
+    <div
+      className={darkMode ? "mainbar dark" : "mainbar light"}
+      style={{ marginTop: "40px" }}
+    >
       {/* View toggle buttons */}
-      <div className="view-toggle" style={{marginBottom:"30px"}}>
+      <div className="view-toggle" style={{ marginBottom: "30px" }}>
         <button
           className={activeView === "month" ? "active" : ""}
           onClick={() => setActiveView("month")}
