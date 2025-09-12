@@ -156,3 +156,13 @@
 .leftbar.light .appointment-item {
   border-bottom: 1px solid #ccc;
 }
+.appointment-item {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.appointment-item:hover {
+  background: rgba(0,0,0,0.1);
+}

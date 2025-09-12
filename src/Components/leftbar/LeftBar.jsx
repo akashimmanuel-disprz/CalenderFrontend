@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./LeftBar.css";
 
-function LeftBar({ darkMode, selectedDate, setSelectedDate }) {
+function LeftBar({ darkMode, selectedDate, setSelectedDate, onSelectAppointment }) {
   const [appointments, setAppointments] = useState([]);
 
   const prevDay = () => {
@@ -74,17 +74,23 @@ function LeftBar({ darkMode, selectedDate, setSelectedDate }) {
       <div className="section-title">Recents & Upcomings</div>
 
       <div className="appointment-list">
-        {appointments.length > 0 ? (
-          appointments.map((appt) => (
-            <div key={appt.eventId} className="appointment-item">
-              <strong>{appt.title}</strong>
-              <p>{appt.description}</p>
-            </div>
-          ))
-        ) : (
-          <div>No appointments for this day.</div>
-        )}
+  {appointments.length > 0 ? (
+    appointments.map((appt) => (
+      <div
+        key={appt.eventId}
+        className="appointment-item"
+        onClick={() => onSelectAppointment(appt)} // ✅ open edit modal
+        style={{ cursor: "pointer" }}
+      >
+        <strong>{appt.title}</strong>
+        <p>{appt.description}</p>
       </div>
+    ))
+  ) : (
+    <div>No appointments for this day.</div>
+  )}
+</div>
+
     </div>
   );
 }

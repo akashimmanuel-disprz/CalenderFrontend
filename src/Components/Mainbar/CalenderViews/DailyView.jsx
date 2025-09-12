@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./DailyView.css";
 
-function DailyView({ darkMode, currentDate }) {
+function DailyView({ darkMode, currentDate, onSelectAppointment }) {
   const today = new Date();
   const [events, setEvents] = useState([]);
   const [now, setNow] = useState(new Date());
@@ -18,12 +18,14 @@ function DailyView({ darkMode, currentDate }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Fetch events
+  // Fetch events from backend
   useEffect(() => {
     const fetchEvents = async () => {
       const dateStr = currentDate.toISOString().split("T")[0];
       try {
-        const res = await axios.get(`http://localhost:5025/api/events/date?day=${dateStr}`);
+        const res = await axios.get(
+          `http://localhost:5025/api/events/date?day=${dateStr}`
+        );
         const mapped = res.data.map((e) => {
           const start = new Date(e.startTime);
           const end = new Date(e.endTime);
@@ -44,15 +46,16 @@ function DailyView({ darkMode, currentDate }) {
     };
 
     fetchEvents();
-  }, [currentDate, scale]);
+  }, [currentDate]);
 
   // Auto-scroll to current time
   useEffect(() => {
     if (timelineRef.current) {
-      const scrollTop = (now.getHours() * 60 + now.getMinutes()) * scale - 120;
+      const scrollTop =
+        (now.getHours() * 60 + now.getMinutes()) * scale - 120;
       timelineRef.current.scrollTop = scrollTop > 0 ? scrollTop : 0;
     }
-  }, [now, scale]);
+  }, [now]);
 
   // 30-min slots
   const slots = Array.from({ length: 48 }, (_, i) => i);
@@ -72,15 +75,27 @@ function DailyView({ darkMode, currentDate }) {
     const prev = new Date(currentDate);
     prev.setDate(currentDate.getDate() - 1);
 
-    const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const prevOnly = new Date(prev.getFullYear(), prev.getMonth(), prev.getDate());
+    const todayOnly = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    const prevOnly = new Date(
+      prev.getFullYear(),
+      prev.getMonth(),
+      prev.getDate()
+    );
 
-    if (prevOnly >= todayOnly) setCurrentDate(prev);
+    if (prevOnly >= todayOnly) {
+      onSelectAppointment(null); // close any open modal
+      setCurrentDate(prev);
+    }
   };
 
   const goToNextDay = () => {
     const next = new Date(currentDate);
     next.setDate(currentDate.getDate() + 1);
+    onSelectAppointment(null);
     setCurrentDate(next);
   };
 
@@ -108,7 +123,10 @@ function DailyView({ darkMode, currentDate }) {
       <div className="timeline-container" ref={timelineRef}>
         {/* Current time line */}
         {now.toDateString() === currentDate.toDateString() && (
-          <div className="current-time-line" style={{ top: `${nowMinutes * scale}px` }} />
+          <div
+            className="current-time-line"
+            style={{ top: `${nowMinutes * scale}px` }}
+          />
         )}
 
         {/* Time slots */}
@@ -128,11 +146,19 @@ function DailyView({ darkMode, currentDate }) {
             key={idx}
             className="event-box"
             style={{ top: `${event.top}px`, height: `${event.height}px` }}
+            onClick={() => onSelectAppointment(event)} // open edit modal
           >
             <strong>{event.title}</strong>
             <span>
-              {event.start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} -{" "}
-              {event.end.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+              {event.start.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              -{" "}
+              {event.end.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </span>
           </div>
         ))}
