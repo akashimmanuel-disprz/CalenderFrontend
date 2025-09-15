@@ -1,0 +1,36 @@
+/* Header - Light mode */
+.header {
+  width: 100%;
+  padding: 15px;
+  border-radius: 0;
+  background: #f5f4f4;
+  color: #000;
+  text-shadow: 0 0 5px #f5f4f4, 0 0 10px #f5f4f4;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #131313;
+}
+
+/* Title */
+.header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Subtitle */
+.header p {
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Header - Dark mode */
+.dark .header {
+  background: #12122e;
+  color: #fff;
+  text-shadow: 0 0 5px #b36e00, 0 0 10px #b36e00;
+  border-bottom: 2px solid #b36e00;
+}

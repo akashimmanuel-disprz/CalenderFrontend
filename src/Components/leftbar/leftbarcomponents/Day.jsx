@@ -1,18 +1,12 @@
 import React from "react";
-import "./LeftBar.css"; // LeftBar container + appointments styles
-import "./styles/Day.css";     // Date navigator + toolbox styles
-import Header from "./leftbarcomponents/header"; // Header component
-import Appointment from "./leftbarcomponents/appoinments"; // Appointment list component
+import { formatDate } from "../utils/dateUtils"; // ✅ import formatDate
 
-function LeftBar({ darkMode, selectedDate, setSelectedDate, onSelectAppointment }) {
-
+function Day({ selectedDate, setSelectedDate }) {
   const prevDay = () => {
     const yesterday = new Date(selectedDate);
     yesterday.setDate(selectedDate.getDate() - 1);
-
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     if (yesterday >= today) setSelectedDate(yesterday);
   };
 
@@ -26,30 +20,17 @@ function LeftBar({ darkMode, selectedDate, setSelectedDate, onSelectAppointment 
     const newDate = new Date(e.target.value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     if (newDate >= today) setSelectedDate(newDate);
   };
 
-  const formatDate = (date) =>
-    date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-
   return (
-    <div className={darkMode ? "leftbar dark" : "leftbar light"}>
-      {/* Header component */}
-      <Header 
-        title="Appointments" 
-        subtitle="Manage your schedule" 
-        darkMode={darkMode} 
-      />
-
-      {/* Date navigator */}
+    <div>
       <div className="date-navigator">
         <button onClick={prevDay}>&lt;</button>
         <span>{formatDate(selectedDate)}</span>
         <button onClick={nextDay}>&gt;</button>
       </div>
 
-      {/* Date picker */}
       <div className="toolbox">
         <input
           type="date"
@@ -58,18 +39,8 @@ function LeftBar({ darkMode, selectedDate, setSelectedDate, onSelectAppointment 
           onChange={handleDateChange}
         />
       </div>
-
-      {/* Section title */}
-      <div className="section-title">Recents & Upcomings</div>
-
-      {/* Appointment list component */}
-      <Appointment 
-        selectedDate={selectedDate} 
-        onSelect={onSelectAppointment} 
-        darkMode={darkMode} 
-      />
     </div>
   );
 }
 
-export default LeftBar;
+export default Day;

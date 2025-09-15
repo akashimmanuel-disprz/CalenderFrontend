@@ -1,0 +1,49 @@
+/* Date navigator */
+.leftbar .date-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftbar .date-navigator button {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.leftbar .date-navigator span {
+  font-weight: bold;
+}
+
+/* Toolbox */
+.leftbar .toolbox input[type="date"] {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Dark mode */
+.leftbar.dark .date-navigator button {
+  background-color: #333;
+  color: #fff;
+}
+
+.leftbar.dark .toolbox input[type="date"] {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+/* Light mode */
+.leftbar.light .date-navigator button {
+  background-color: #ddd;
+  color: #000;
+}
+
+.leftbar.light .toolbox input[type="date"] {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}

@@ -1,0 +1,55 @@
+/* Appointment list container */
+.appointment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* space between appointments */
+}
+
+/* Individual appointment item */
+.appointment-item {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.appointment-item:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Title of appointment */
+.appointment-item .title {
+  font-weight: bold;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Description of appointment */
+.appointment-item .description {
+  font-size: 0.85rem;
+  color: gray;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dark mode for appointment item */
+.appointment-item.dark {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #444;
+}
+
+.appointment-item.dark .description {
+  color: #bbb;
+}
+
+/* Light mode for appointment item */
+.appointment-item.light {
+  border-bottom: 1px solid #ccc;
+}
