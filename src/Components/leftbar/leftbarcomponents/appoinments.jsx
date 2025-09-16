@@ -1,6 +1,6 @@
+// Appointment.jsx
 import React, { useState, useEffect } from "react";
-import { getAppointmentsByDate } from "../services/leftBarServices";
-import { formatDateAPI } from "../utils/dateUtils"; // ✅ import for API formatting
+import { fetchAllEvents, getEventsByDate } from "../../MainService/DayAppointments";
 
 function Appointment({ selectedDate, onSelect, darkMode }) {
   const [appointments, setAppointments] = useState([]);
@@ -8,14 +8,21 @@ function Appointment({ selectedDate, onSelect, darkMode }) {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const data = await getAppointmentsByDate(formatDateAPI(selectedDate));
-        setAppointments(data);
+        // fetch all events once
+        await fetchAllEvents();
+
+        // get events only for the selected date
+        const eventsForDay = getEventsByDate(selectedDate);
+        setAppointments(eventsForDay);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching appointments:", err);
         setAppointments([]);
       }
     };
-    fetchAppointments();
+
+    if (selectedDate) {
+      fetchAppointments();
+    }
   }, [selectedDate]);
 
   return (
@@ -33,7 +40,7 @@ function Appointment({ selectedDate, onSelect, darkMode }) {
           </div>
         ))
       ) : (
-        <div>No appointments for this day.</div>
+        <div>No appointments found.</div>
       )}
     </div>
   );

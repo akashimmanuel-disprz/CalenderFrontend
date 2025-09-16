@@ -1,6 +1,7 @@
+// WeekView.jsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./WeekView.css";
+import { fetchAllEvents, getEventsByDate } from "../../MainService/DayAppointments"; // adjust path
+import "../styles/WeekView.css";
 
 function WeekView({ darkMode }) {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -18,39 +19,31 @@ function WeekView({ darkMode }) {
 
   const hoursArray = Array.from({ length: 24 }, (_, i) => i);
 
-  // Fetch events for each day of the week
+  // Fetch all events once, filter by week locally
   useEffect(() => {
     const fetchEvents = async () => {
-      let weekEvents = [];
+      try {
+        await fetchAllEvents(); // fetch all events once
 
-      for (let day of daysArray) {
-        const dateString = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(
-          2,
-          "0"
-        )}-${String(day.getDate()).padStart(2, "0")}`;
-
-        try {
-          const res = await axios.get(`http://localhost:5025/api/events/date?day=${dateString}`);
-
-          const mapped = res.data.map((e) => {
-            const start = new Date(e.startTime); // local time
+        let weekEvents = [];
+        daysArray.forEach((day) => {
+          const eventsForDay = getEventsByDate(day); // get events for the day
+          const mapped = eventsForDay.map((e) => {
+            const start = new Date(e.startTime);
             return {
               ...e,
               Hour: start.getHours(),
-              DateString: `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(
-                2,
-                "0"
-              )}-${String(start.getDate()).padStart(2, "0")}`,
+              DateString: start.toISOString().split("T")[0],
             };
           });
-
           weekEvents = [...weekEvents, ...mapped];
-        } catch (err) {
-          console.error("Error fetching events for", dateString, err);
-        }
-      }
+        });
 
-      setEvents(weekEvents);
+        setEvents(weekEvents);
+      } catch (err) {
+        console.error("Error fetching week events:", err);
+        setEvents([]);
+      }
     };
 
     fetchEvents();
@@ -97,11 +90,7 @@ function WeekView({ darkMode }) {
 
             {/* Hour cells for each day */}
             {daysArray.map((day, idx) => {
-              const cellDateString = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(
-                2,
-                "0"
-              )}-${String(day.getDate()).padStart(2, "0")}`;
-
+              const cellDateString = day.toISOString().split("T")[0];
               const eventForHour = events.find(
                 (e) => e.Hour === hour && e.DateString === cellDateString
               );

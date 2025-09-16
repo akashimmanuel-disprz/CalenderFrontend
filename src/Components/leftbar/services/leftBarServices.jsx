@@ -1,19 +1,18 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:5025/api/events";
+const API_BASE = "http://localhost:5186/api/events";
 
 /**
- * Fetch appointments for a specific date from the backend.
- * @param {Date} date - The selected date
- * @returns {Promise<Array>} - List of appointments
+ * Fetch a single appointment by its ID from the backend.
+ * @param {number|string} id - The ID of the event
+ * @returns {Promise<Object|null>} - The appointment object, or null if not found
  */
-export const getAppointmentsByDate = async (date) => {
+export const getAppointmentById = async (id) => {
   try {
-    const formattedDate = date.toISOString().split("T")[0]; // YYYY-MM-DD
-    const response = await axios.get(`${API_BASE}/date?day=${formattedDate}`);
+    const response = await axios.get(`${API_BASE}/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching appointments:", error);
-    return [];
+    console.error(`Error fetching appointment with ID ${id}:`, error);
+    return null;
   }
 };

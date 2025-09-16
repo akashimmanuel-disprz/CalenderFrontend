@@ -1,7 +1,7 @@
 // DailyView.jsx
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import "./DailyView.css";
+import { fetchAllEvents, getEventsByDate } from "../../MainService/DayAppointments"; // adjust path
+import "../styles/DailyView.css";
 
 function DailyView({ darkMode, currentDate, onSelectAppointment }) {
   const today = new Date();
@@ -18,18 +18,17 @@ function DailyView({ darkMode, currentDate, onSelectAppointment }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Fetch events from backend
+  // Fetch all events once, filter locally by selectedDate
   useEffect(() => {
-    const fetchEvents = async () => {
-      const dateStr = currentDate.toISOString().split("T")[0];
+    const fetchAppointments = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5025/api/events/date?day=${dateStr}`
-        );
-        const mapped = res.data.map((e) => {
+        // fetch all events only once
+        await fetchAllEvents();
+
+        // get events only for currentDate
+        const filtered = getEventsByDate(currentDate).map((e) => {
           const start = new Date(e.startTime);
           const end = new Date(e.endTime);
-
           return {
             ...e,
             start,
@@ -38,21 +37,21 @@ function DailyView({ darkMode, currentDate, onSelectAppointment }) {
             height: ((end - start) / (1000 * 60)) * scale,
           };
         });
-        setEvents(mapped);
+
+        setEvents(filtered);
       } catch (err) {
         console.error("Error fetching events:", err);
         setEvents([]);
       }
     };
 
-    fetchEvents();
+    fetchAppointments();
   }, [currentDate]);
 
   // Auto-scroll to current time
   useEffect(() => {
     if (timelineRef.current) {
-      const scrollTop =
-        (now.getHours() * 60 + now.getMinutes()) * scale - 120;
+      const scrollTop = (now.getHours() * 60 + now.getMinutes()) * scale - 120;
       timelineRef.current.scrollTop = scrollTop > 0 ? scrollTop : 0;
     }
   }, [now]);
@@ -75,19 +74,11 @@ function DailyView({ darkMode, currentDate, onSelectAppointment }) {
     const prev = new Date(currentDate);
     prev.setDate(currentDate.getDate() - 1);
 
-    const todayOnly = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate()
-    );
-    const prevOnly = new Date(
-      prev.getFullYear(),
-      prev.getMonth(),
-      prev.getDate()
-    );
+    const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const prevOnly = new Date(prev.getFullYear(), prev.getMonth(), prev.getDate());
 
     if (prevOnly >= todayOnly) {
-      onSelectAppointment(null); // close any open modal
+      onSelectAppointment(null);
       setCurrentDate(prev);
     }
   };
@@ -121,12 +112,8 @@ function DailyView({ darkMode, currentDate, onSelectAppointment }) {
 
       {/* Timeline */}
       <div className="timeline-container" ref={timelineRef}>
-        {/* Current time line */}
         {now.toDateString() === currentDate.toDateString() && (
-          <div
-            className="current-time-line"
-            style={{ top: `${nowMinutes * scale}px` }}
-          />
+          <div className="current-time-line" style={{ top: `${nowMinutes * scale}px` }} />
         )}
 
         {/* Time slots */}
@@ -146,19 +133,13 @@ function DailyView({ darkMode, currentDate, onSelectAppointment }) {
             key={idx}
             className="event-box"
             style={{ top: `${event.top}px`, height: `${event.height}px` }}
-            onClick={() => onSelectAppointment(event)} // open edit modal
+            onClick={() => onSelectAppointment(event)}
           >
             <strong>{event.title}</strong>
             <span>
-              {event.start.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}{" "}
+              {event.start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}{" "}
               -{" "}
-              {event.end.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {event.end.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
             </span>
           </div>
         ))}
