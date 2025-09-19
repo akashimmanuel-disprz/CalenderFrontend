@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./CreateAppointmentModal.css";
-import axios from "axios";
-
+import { createAppointment } from "./MainService/AppointmentServices"; // ⬅️ import your function
 
 function CreateAppointmentModal({ onClose }) {
   const [title, setTitle] = useState("");
@@ -25,40 +24,39 @@ function CreateAppointmentModal({ onClose }) {
     return Object.keys(newErrors).length === 0;
   };
 
-const handleCreate = async () => {
-  if (!validateForm()) return;
+  const handleCreate = async () => {
+    if (!validateForm()) return;
 
-  // Combine date + time into ISO datetime format for SQL Server
-  const formatDateTime = (date, time) => {
-    if (!date || !time) return null;
-    const combined = new Date(`${date}T${time}`);
-    const yyyy = combined.getFullYear();
-    const mm = String(combined.getMonth() + 1).padStart(2, "0");
-    const dd = String(combined.getDate()).padStart(2, "0");
-    const hh = String(combined.getHours()).padStart(2, "0");
-    const min = String(combined.getMinutes()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`; // ISO format
+    // Combine date + time into ISO datetime format for SQL Server
+    const formatDateTime = (date, time) => {
+      if (!date || !time) return null;
+      const combined = new Date(`${date}T${time}`);
+      const yyyy = combined.getFullYear();
+      const mm = String(combined.getMonth() + 1).padStart(2, "0");
+      const dd = String(combined.getDate()).padStart(2, "0");
+      const hh = String(combined.getHours()).padStart(2, "0");
+      const min = String(combined.getMinutes()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}T${hh}:${min}:00`; // ISO format
+    };
+
+    const payload = {
+      Title: title.trim(),
+      Description: description.trim(),
+      StartTime: formatDateTime(date, startTime),
+      EndTime: formatDateTime(date, endTime),
+      RecurrenceType: repetition === "none" ? null : repetition,
+      RecurrenceCount: repetition === "none" ? null : -1,
+    };
+
+    try {
+      await createAppointment(payload); // ⬅️ use function instead of axios.post
+      console.log("Appointment Created:", payload);
+      onClose();
+    } catch (error) {
+      console.error("Error creating appointment:", error);
+      alert("Failed to create appointment. Please check your inputs.");
+    }
   };
-
-  const payload = {
-    Title: title.trim(),
-    Description: description.trim(),
-    StartTime: formatDateTime(date, startTime),
-    EndTime: formatDateTime(date, endTime),
-    RecurrenceType: repetition === "none" ? null : repetition,
-    RecurrenceCount: repetition === "none" ? null : -1,
-  };
-
-  try {
-    await axios.post("http://localhost:5025/api/events", payload);
-    console.log("Appointment Created:", payload);
-    onClose(); // close modal after successful submission
-  } catch (error) {
-    console.error("Error creating appointment:", error);
-    alert("Failed to create appointment. Please check your inputs.");
-  }
-};
-
 
   return (
     <div className="modal-overlay">

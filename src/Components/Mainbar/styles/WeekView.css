@@ -18,14 +18,15 @@
   text-align: center;
   font-weight: bold;
   padding: 5px 0;
-  background-color: #dcdcdc; /* light mode header */
-  border-bottom: 1px solid #999;
+  background-color: #ffe6e6;
+  border:none; /* light mode header */
+  border-bottom: 1px solid #950101;
 }
 
 .week-view.dark .week-day {
-  background-color: #1a1a2e; /* darker dark mode header */
+  background-color: #101010; /* darker dark mode header */
   color: #ddd;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #FF0000;
 }
 
 /* Grid of hours */
@@ -42,16 +43,18 @@
 
 /* Time column: Hours */
 .time-column {
-  border: 1px solid #ccc;
+  border: none ;
+  border-right: 1px solid #950101;
   text-align: center;
   font-weight: bold;
-  background-color: #e0e0e0; /* light mode hour column */
+  background-color: #ffe6e6; /* light mode hour column */
 }
 
 .week-view.dark .time-column {
-  background-color: #111123; /* much darker hour column */
+  background-color: #101010; /* much darker hour column */
   color: #ddd;
-  border: 1px solid #333;
+  border: 1px solid #101010;
+  border-right: 1px solid #ff0000;
 }
 
 /* Grid cells */

@@ -52,9 +52,6 @@
   color: #fff;
 }
 
-.month-view.dark .month-cell.dark:hover {
-  background-color: #3a3a4f; /* slightly lighter on hover */
-}
 
 /* Light mode */
 .month-view.light .month-cell.light {
@@ -68,9 +65,6 @@
   color: #fff;
 }
 
-.month-view.light .month-cell.light:hover {
-  background-color: #7ac4d7;
-}
 
 /* Dark mode */
 /* Dark mode cells */
@@ -85,16 +79,8 @@
   color: #fff;
 }
 
-.month-view.dark .month-cell:hover {
-  background-color: #3a3a4f; /* slightly lighter on hover */
-}
-
 
 /* Highlight today */
-.month-cell.today {
-  border: 2px solid #ff9800;
-}
-/* Month header */
 .month-header {
   display: flex;
   justify-content: center;
@@ -202,9 +188,6 @@
 }
 
 /* Highlight today */
-.month-cell.today {
-  border: 2px solid #ff9800;
-}
 
 /* Month header */
 .month-header {
@@ -268,7 +251,8 @@
 }
 
 .month-view.light .month-cell.light:hover {
-  background-color: #7ac4d7;
+  background-color: rgba(176, 1, 1, 0.5)
+  
 }
 
 /* Dark mode */
@@ -284,9 +268,8 @@
 }
 
 .month-view.dark .month-cell.dark:hover {
-  background-color: #505065;
+  background-color: #ff0000; /* or any dark-mode hover color you want */
 }
-
 /* Month title colors */
 .month-view.light .month-header h2 {
   color: #000;
@@ -296,11 +279,11 @@
   color: #ddd;
 }
 .month-view.light .month-cell.today {
-  border: 4px solid #4ce7fe; /* blue for light mode */
+  border: 4px solid #950101; /* blue for light mode */
 }
 
 .month-view.dark .month-cell.today {
-  border: 4px solid #ff9800; /* orange for dark mode */
+  border: 4px solid #ff0000; /* orange for dark mode */
 }
 /* Light mode events */
 .month-view.light .event {

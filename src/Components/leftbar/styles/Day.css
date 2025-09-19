@@ -3,47 +3,61 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .leftbar .date-navigator button {
-  padding: 5px 10px;
+  padding: 5px 12px;
   cursor: pointer;
   border: none;
   border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .leftbar .date-navigator span {
   font-weight: bold;
+  font-size: 0.95rem;
 }
 
 /* Toolbox */
 .leftbar .toolbox input[type="date"] {
   width: 100%;
-  padding: 5px;
+  padding: 6px 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 /* Dark mode */
 .leftbar.dark .date-navigator button {
+  background-color: #1e1e2f; /* match leftbar dark bg */
+  color: #ff4d4d;            /* red accent */
+}
+
+.leftbar.dark .date-navigator button:hover {
   background-color: #333;
-  color: #fff;
 }
 
 .leftbar.dark .toolbox input[type="date"] {
-  background-color: #333;
+  background-color: #1e1e2f; 
   color: #fff;
-  border: 1px solid #555;
+  border: 1px solid #ff4d4d; /* red accent border */
 }
 
 /* Light mode */
 .leftbar.light .date-navigator button {
-  background-color: #ddd;
-  color: #000;
+  background-color: #ffe5e5; /* soft pink */
+  color: #3D0000;            /* dark red text */
+}
+
+.leftbar.light .date-navigator button:hover {
+  background-color: #ffcccc;
 }
 
 .leftbar.light .toolbox input[type="date"] {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
+  background-color: #ffe5e5;
+  color: #3D0000;
+  border: 1px solid #ff9999;
 }

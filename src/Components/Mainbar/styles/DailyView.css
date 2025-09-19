@@ -8,12 +8,12 @@
 }
 
 .daily-view.light {
-  background-color: #f5f5f5;
+  background-color: #fff5f5;
   color: #000;
 }
 
 .daily-view.dark {
-  background-color: #121212;
+  background-color: #000;
   color: #fff;
   border-left: 1px solid #333;
 }

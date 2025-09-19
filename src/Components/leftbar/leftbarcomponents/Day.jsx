@@ -27,7 +27,7 @@ function Day({ selectedDate, setSelectedDate }) {
     <div>
       <div className="date-navigator">
         <button onClick={prevDay}>&lt;</button>
-        <span>{formatDate(selectedDate)}</span>
+        <span style={{paddingRight:"0px !important"}}>{formatDate(selectedDate)}</span>
         <button onClick={nextDay}>&gt;</button>
       </div>
 

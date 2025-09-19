@@ -1,20 +1,39 @@
 import React, { useState } from "react";
-import { FiSettings } from "react-icons/fi";
 import LeftBar from "./Components/leftbar/LeftBar";
 import MainBar from "./Components/Mainbar/mainbar";
 import CreateAppointmentModal from "./Components/CreateAppoinmentModal";
-import EditAppointmentModal from "./Components/UpdateAppoinmentModal"; 
+import EditAppointmentModal from "./Components/UpdateAppoinmentModal";
+import LoginPage from "./Auth/LoginPage";
+import AuthService from "./service/AuthService";
 import "./App.css";
+import { CgDarkMode } from "react-icons/cg";
+import { FiLogOut } from "react-icons/fi";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
-  const [showSettings, setShowSettings] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(AuthService.isLoggedIn());
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
-  const toggleSettings = () => setShowSettings(!showSettings);
+
+  const handleLogout = () => {
+    AuthService.logout(); // clear token
+    setIsLoggedIn(false);
+  };
+
+  // If not logged in, show the login page
+  if (!isLoggedIn) {
+    return (
+      <LoginPage
+        onLogin={() => setIsLoggedIn(true)}
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
+    );
+  }
 
   return (
     <div className={darkMode ? "app dark" : "app light"}>
@@ -23,7 +42,7 @@ function App() {
         darkMode={darkMode}
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
-        onSelectAppointment={setSelectedAppointment} // pass callback to LeftBar
+        onSelectAppointment={setSelectedAppointment}
       />
 
       {/* Main Content */}
@@ -31,26 +50,47 @@ function App() {
         {/* Top Bar */}
         <div className="top-bar">
           <button
-            className="create-btn"
+            className="create-appointment-btn"
             onClick={() => setShowCreateModal(true)}
           >
             + Create Appointment
           </button>
+
+          {/* Settings Button */}
+          <div className="settings-container">
+            <button
+              className="darkmode-circle"
+              onClick={() => setSettingsOpen(!settingsOpen)}
+            >
+              ⚙
+            </button>
+            {settingsOpen && (
+              <div className="settings-menu">
+                <button onClick={handleLogout}>
+                  <FiLogOut style={{ marginRight: "8px" }} /> Logout
+                </button>
+                <button onClick={toggleDarkMode}>
+                  <CgDarkMode style={{ marginRight: "8px" }} />{" "}
+                  {darkMode ? "Light" : "Dark"}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Main Bar (Day/Month Views etc.) */}
+        {/* Main Bar */}
         <MainBar
           darkMode={darkMode}
           selectedDate={selectedDate}
-          onSelectAppointment={setSelectedAppointment} // pass callback to DailyView/MonthView inside MainBar
+          onSelectAppointment={setSelectedAppointment}
         />
 
-        {/* Create Modal */}
+        {/* Create Appointment Modal */}
         {showCreateModal && (
           <CreateAppointmentModal onClose={() => setShowCreateModal(false)} />
         )}
 
-        {/* Edit Modal */}
+        {/* Edit Appointment Modal */}
         {selectedAppointment && (
           <EditAppointmentModal
             appointment={selectedAppointment}
@@ -61,18 +101,6 @@ function App() {
             }}
           />
         )}
-
-        {/* Settings */}
-        <div className="settings-container">
-          <FiSettings className="settings-icon" onClick={toggleSettings} />
-          {showSettings && (
-            <div className="settings-menu">
-              <button onClick={toggleDarkMode}>
-                {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-              </button>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

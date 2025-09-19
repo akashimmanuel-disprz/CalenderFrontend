@@ -3,12 +3,11 @@
   width: 100%;
   padding: 15px;
   border-radius: 0;
-  background: #f5f4f4;
-  color: #000;
-  text-shadow: 0 0 5px #f5f4f4, 0 0 10px #f5f4f4;
+  background: #ffe5e5;  /* soft pink to match LeftBar */
+  color: #3D0000;       /* dark red text */
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid #131313;
+  border-bottom: 2px solid #ff9999; /* subtle red border */
 }
 
 /* Title */
@@ -29,8 +28,7 @@
 
 /* Header - Dark mode */
 .dark .header {
-  background: #12122e;
-  color: #fff;
-  text-shadow: 0 0 5px #b36e00, 0 0 10px #b36e00;
-  border-bottom: 2px solid #b36e00;
+  background: #3D0000;  /* match LeftBar dark background */
+  color: #fff;          /* white text */
+  border-bottom: 2px solid #ff4d4d; /* red accent border */
 }

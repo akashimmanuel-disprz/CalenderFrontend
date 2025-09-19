@@ -1,0 +1,195 @@
+/* ---------------- Page Layout ---------------- */
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+}
+
+/* Left half: Form container */
+.login-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+
+/* Left Half / Form colors */
+.login-left.light {
+  --input-bg: #fff;         /* light input background */
+  --input-text: #3D0000;    /* dark text */
+  --form-text: #3D0000;
+  --button-bg: #FF0000;
+  --button-hover: #950101;
+}
+
+.login-left.dark {
+  --input-bg: #3D0000;      /* dark input background */
+  --input-text: #FF0000;    /* red text */
+  --form-text: #fff;        /* white text */
+  --button-bg: #FF0000;
+  --button-hover: #950101;
+}
+
+/* Form inputs use variables */
+
+.login-form button {
+  background-color: var(--button-bg);
+  color: #fff;
+}
+
+.login-form button:hover {
+  background-color: var(--button-hover);
+}
+
+/* Right half: Static content placeholder */
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: var(--right-bg);
+}
+
+/* ---------------- Form Box ---------------- */
+/* Remove box styles from login-form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px; /* optional for alignment */
+  /* Remove background, padding, border-radius, shadow */
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--form-text);
+}
+
+/* Form Heading */
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ---------------- Inputs & Select ---------------- */
+
+
+.login-form p, .login-form label {
+  color: var(--form-text);
+}
+.login-form select {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  font-size: 14px;
+  outline: none;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  transition: all 0.2s ease;
+}
+
+
+/* ---------------- Buttons ---------------- */
+.login-form button {
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.login-form button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ---------------- Login/SignUp toggle text ---------------- */
+.login-form p {
+  text-align: center;
+  margin-top: 10px;
+  color: var(--toggle-text);
+}
+
+.login-form p span {
+  cursor: pointer;
+  color: var(--accent-color);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.login-form p span:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* ---------------- Dark/Light Mode Toggle ---------------- */
+.toggle-darkmode-btn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.toggle-darkmode-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* ---------------- Light Mode Variables ---------------- */
+.login-page.light {
+  --left-bg: #fff5f5;         /* light pinkish page left */
+  --right-bg: #ffe5e5;        /* lighter right half */
+  --form-bg: #fff0f0;         /* box background */
+  --form-text: #3D0000;       /* box text */
+  --input-bg: #ffe5e5;        /* input background */
+  --input-text: #3D0000;
+  --input-border: #950101;
+  --accent-color: #FF0000;    /* buttons & links */
+  --accent-hover: #950101;
+  --toggle-text: #3D0000;
+}
+
+/* ---------------- Dark Mode Variables ---------------- */
+.login-page.dark {
+  --left-bg: #121212;          /* dark left half */
+  --right-bg: #1a1a1a;         /* dark right half */
+  --form-bg: #000000;          /* box background */
+  --form-text: #fff;           /* box text */
+  --input-bg: #3D0000;         /* input background */
+  --input-text: #fff;
+  --input-border: #950101;
+  --accent-color: #FF0000;     /* buttons & links */
+  --accent-hover: #950101;
+  --toggle-text: #fff;
+}
+.feedback {
+  margin: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.feedback.success {
+  color: green;
+}
+
+.feedback.error {
+  color: red;
+}
+
+.feedback.warning {
+  color: orange;
+}

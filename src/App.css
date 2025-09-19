@@ -7,14 +7,14 @@
   position: relative;
 }
 
-/* Dark / Light mode */
+/* Dark / Light mode for main app */
 .app.dark {
-  background-color: #121212;
+  background-color: #000000;
   color: #ffffff;
 }
 
 .app.light {
-  background-color: #f5f5f5;
+  background-color: #fff5f5;
   color: #000000;
 }
 
@@ -25,15 +25,18 @@
   padding: 20px;
   box-sizing: border-box;
   border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .leftbar.dark {
-  background-color: #1e1e2f;
-  color: #ddd;
+  background-color: #3D0000;
+  color: #fff;
 }
 
 .leftbar.light {
-  background-color: #f5f5f5;
+  background-color: #fff0f0;
   color: #000;
 }
 
@@ -61,22 +64,12 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.2s;
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.leftbar.light .date-navigator button {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.leftbar.dark .date-navigator button {
-  background-color: #3f784c;
+  background-color: #950101;
   color: #fff;
 }
 
 .date-navigator button:hover {
-  opacity: 0.9;
+  background-color: #FF0000;
 }
 
 .toolbox input[type="date"] {
@@ -91,12 +84,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
+  flex: 1;
 }
 
 .appointment-item {
   padding: 8px;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #950101;
   color: #fff;
   font-size: 14px;
 }
@@ -104,34 +99,28 @@
 /* ---------------- Main Content ---------------- */
 .main-content {
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  position: relative;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
 /* ---------------- Top Bar ---------------- */
-/* Container for top bar buttons */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  gap: 20px; /* Adds horizontal space between create button and view toggle */
+  gap: 20px;
+  flex-shrink: 0;
 }
 
-/* View toggle buttons already exist */
-.view-toggle {
-  display: flex;
-  gap: 10px;
-}
-
-
-/* Create Appointment Button */
 .create-appointment-btn {
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background-color: #4caf50;
+  background-color: #950101;
   color: white;
   font-size: 14px;
   cursor: pointer;
@@ -139,68 +128,63 @@
 }
 
 .create-appointment-btn:hover {
-  background-color: #45a049;
+  background-color: #FF0000;
 }
 
-/* Dark mode for create button */
-.app.dark .create-appointment-btn {
-  background-color: #388e3c;
-  color: #fff;
-}
-
-.app.dark .create-appointment-btn:hover {
-  background-color: #2e7d32;
-}
-
-/* ---------------- Settings Icon ---------------- */
+/* ---------------- Settings ---------------- */
 .settings-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
+  position: relative;
+  margin-left: 20px;
 }
 
-.settings-icon {
-  font-size: 24px;
+.settings-container button {
+  font-size: 15px;
   cursor: pointer;
+  background: transparent;
+  border: none;
   color: inherit;
+  padding: 5px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.settings-container button:hover {
+  transform: scale(1.1);
 }
 
 .settings-menu {
-  margin-top: 10px;
-  background-color: #ffffff;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-color: inherit;
   border: 1px solid #ccc;
-  padding: 10px;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-  min-width: 180px;
-}
-
-.app.dark .settings-menu {
-  background-color: #1e1e2f;
-  color: #ffffff;
-  border: 1px solid #333;
+  padding: 8px;
+  min-width: 60px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .settings-menu button {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 8px 12px;
-  cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #950101;
   color: #fff;
-  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.app.dark .settings-menu button {
-  background-color: #388e3c;
-  color: #fff;
+.settings-menu button:hover {
+  background-color: #FF0000;
 }
 
 /* ---------------- View Toggle Buttons ---------------- */
-
-
 .view-toggle button {
   padding: 6px 12px;
   border: none;
@@ -208,30 +192,222 @@
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background-color: #e0e0e0;
+  background-color: #f2dada;
   color: #000;
 }
 
 .view-toggle button:hover:not(.active) {
-  background-color: #d5d5d5;
+  background-color: #e6bcbc;
 }
 
 .view-toggle button.active {
-  background-color: #4caf50;
+  background-color: #950101;
   color: white;
 }
 
-/* Dark mode for toggle buttons */
 .app.dark .view-toggle button {
-  background-color: #3a3a4f;
-  color: #ddd;
+  background-color: #3D0000;
+  color: #fff;
 }
 
 .app.dark .view-toggle button:hover:not(.active) {
-  background-color: #505065;
+  background-color: #5c0000;
 }
 
 .app.dark .view-toggle button.active {
-  background-color: #3f784c;
+  background-color: #FF0000;
   color: #fff;
+}
+
+/* ---------------- Dark Mode Icon ---------------- */
+.darkmode-circle {
+  font-size: 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.darkmode-circle:hover {
+  transform: scale(1.1);
+}
+
+/* ---------------- Login Page ---------------- */
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+}
+
+/* Left half: Form */
+.login-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: var(--left-bg);
+}
+
+/* Right half: Static content */
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: var(--right-bg);
+}
+
+/* Login Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  background: transparent; /* remove extra box */
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--form-text);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Inputs & Select */
+.login-form input,
+.login-form select {
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+  border-color: var(--accent-color);
+}
+
+/* Buttons */
+.login-form button {
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: var(--accent-color);
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.login-form button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Sign up / Login toggle text */
+.login-form p {
+  text-align: center;
+  margin-top: 10px;
+  color: var(--toggle-text);
+}
+
+.login-form p span {
+  cursor: pointer;
+  color: var(--accent-color);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.login-form p span:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* Dark / Light toggle button */
+.toggle-darkmode-btn {
+  margin-top: 15px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+.toggle-darkmode-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* ---------------- Light Mode Variables ---------------- */
+.login-page.light {
+  --left-bg: #fff5f5;
+  --right-bg: #ffe5e5;
+  --form-text: #3D0000;
+  --input-bg: #fff;
+  --input-text: #3D0000;
+  --input-border: #950101;
+  --accent-color: #FF0000;
+  --accent-hover: #950101;
+  --toggle-text: #3D0000;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+
+  /* Restore the box */
+  background-color: var(--form-bg); /* dynamic light/dark */
+  padding: 30px;                     /* inner spacing */
+  border-radius: 10px;               /* rounded corners */
+  box-shadow: 0 0 15px rgba(0,0,0,0.3); /* subtle shadow */
+  color: var(--form-text);
+}
+/* Light Mode */
+.login-page.light {
+  --form-bg: #fff0f0;
+  --form-text: #3D0000;
+  --input-bg: #fff;
+  --input-text: #3D0000;
+  --input-border: #950101;
+  --accent-color: #FF0000;
+  --accent-hover: #950101;
+  --toggle-text: #3D0000;
+}
+
+/* Dark Mode */
+.login-page.dark {
+  --form-bg: #1a1a1a;
+  --form-text: #fff;
+  --input-bg: #3D0000;
+  --input-text: #fff;
+  --input-border: #950101;
+  --accent-color: #FF0000;
+  --accent-hover: #950101;
+  --toggle-text: #fff;
+}
+
+/* ---------------- Dark Mode Variables ---------------- */
+.login-page.dark {
+  --left-bg: #121212;
+  --right-bg: #1a1a1a;
+  --form-text: #fff;
+  --input-bg: #3D0000;
+  --input-text: #fff;
+  --input-border: #950101;
+  --accent-color: #FF0000;
+  --accent-hover: #950101;
+  --toggle-text: #fff;
 }

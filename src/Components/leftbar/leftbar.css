@@ -24,16 +24,17 @@
 .leftbar .appointment-item {
   padding: 10px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
 }
 
+/* Hover effect */
 .leftbar .appointment-item:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 0, 0, 0.15); /* brighter red highlight */
+  color: #fff;
 }
 
 .leftbar .appointment-item .title {
@@ -54,25 +55,30 @@
 
 /* Dark mode */
 .leftbar.dark {
-  background-color: #1e1e2f;
+  background-color: #12121b; /* deep dark purple/blue */
   color: #fff;
 }
 
 .leftbar.dark .appointment-item {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid #444;
+  background-color: rgba(255, 0, 0, 0.05); /* subtle red tint */
+  border-bottom: 1px solid #333;
 }
 
 .leftbar.dark .appointment-item .description {
-  color: #bbb;
+  color: #ccc;
 }
 
 /* Light mode */
 .leftbar.light {
-  background-color: #f5f5f5;
-  color: #000;
+  background-color: #ffe5e5; /* soft pink */
+  color: #3D0000; /* dark red text */
 }
 
-.leftbar.light .appointment-item {
-  border-bottom: 1px solid #ccc;
+/* .leftbar.light .appointment-item {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid #ffcccc;
+} */
+
+.leftbar.light .appointment-item .description {
+  color: #950101; /* darker red description */
 }

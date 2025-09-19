@@ -7,18 +7,18 @@
 
 /* Individual appointment item */
 .appointment-item {
-  padding: 10px;
+  padding: 12px 15px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: background 0.2s;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
+/* Hover effect */
 .appointment-item:hover {
-  background: rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 /* Title of appointment */
@@ -33,7 +33,6 @@
 /* Description of appointment */
 .appointment-item .description {
   font-size: 0.85rem;
-  color: gray;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -41,15 +40,32 @@
 
 /* Dark mode for appointment item */
 .appointment-item.dark {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid #444;
+  background-color: rgba(255, 77, 77, 0.1); /* subtle red glow */
+  border-bottom: 1px solid #b36e00;
+  color: #fff;
 }
 
 .appointment-item.dark .description {
-  color: #bbb;
+  color: #ffcc99; /* lighter accent for text */
 }
 
 /* Light mode for appointment item */
 .appointment-item.light {
-  border-bottom: 1px solid #ccc;
+  background-color: rgba(255, 204, 204, 0.3); /* soft pink */
+  border-bottom: 1px solid #ff9999;
+  color: #3D0000;
+}
+
+.appointment-item.light .description {
+  color: #800000; /* darker shade for description */
+}
+/* Light mode for appointment item */
+.appointment-item.light {
+  background-color: rgba(255, 204, 204, 0.3); /* soft pink */
+  border-bottom: 1px solid #ff9999;
+  color: #3D0000;
+}
+
+.appointment-item.light .description {
+  color: #800000; /* darker shade for description */
 }

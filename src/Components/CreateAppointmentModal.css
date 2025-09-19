@@ -1,66 +1,102 @@
-/* Overlay */
+/* =======================
+   Overlay
+======================= */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(3px);
 }
 
-/* Modal box */
+/* =======================
+   Modal box
+======================= */
 .modal-content {
-  width: 70%;
-  max-width: 700px;
-  padding: 24px;
+  width: 60%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 22px;
   border-radius: 16px;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* Light mode */
+/* Light mode modal */
 .app.light .modal-content {
-  background: #ffffff;
+  background: #ffd2d2; /* transparent red */
   color: #222;
+  border: 1px solid rgba(149, 1, 1, 0.4);
 }
 
-/* Dark mode */
+/* Dark mode modal */
 .app.dark .modal-content {
-  background: #1e1e2f;
+  background: #310000; /* darker transparent red */
   color: #f5f5f5;
+  border: 1px solid rgba(149, 1, 1, 0.6);
 }
 
-/* Close button */
+/* =======================
+   Close button
+======================= */
 .close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
   border: none;
   background: transparent;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   color: inherit;
+  transition: transform 0.2s;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #950101;
 }
 
-/* Headline */
+/* =======================
+   Headline
+======================= */
 .modal-content h2 {
   margin-bottom: 8px;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
+.modal-content h2.dark {
 
-/* Form elements */
-.modal-content label {
+  color: #f5f5f5;
+}
+.modal-content h2.dark {
+
+  color: #000;
+}
+/* =======================
+   Form elements
+======================= */
+.modal-content label.dark {
   font-size: 14px;
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 6px;
+  color: #f5f5f5;
+}
+.modal-content label.dark {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 6px;
+  color:#000;
 }
 
 .modal-content input,
@@ -68,7 +104,7 @@
 .modal-content select {
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(149, 1, 1, 0.4);
   font-size: 14px;
   width: 100%;
   transition: border-color 0.2s, background 0.2s;
@@ -78,8 +114,8 @@
 .app.light .modal-content input,
 .app.light .modal-content textarea,
 .app.light .modal-content select {
-  background: #f9f9f9;
-  border: 1px solid #ccc;
+  background: rgba(149, 1, 1, 0.05);
+  border: 1px solid rgba(149, 1, 1, 0.3);
   color: #000;
 }
 
@@ -87,26 +123,39 @@
 .app.dark .modal-content input,
 .app.dark .modal-content textarea,
 .app.dark .modal-content select {
-  background: #2a2a40;
-  border: 1px solid #555;
+  background: rgba(149, 1, 1, 0.15);
+  border: 1px solid rgba(149, 1, 1, 0.5);
   color: #f5f5f5;
 }
 
-/* Repeat count */
+/* Description bigger */
+.modal-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* =======================
+   Repeat count
+======================= */
 .repeat-count {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .repeat-count button {
   padding: 6px 12px;
   border-radius: 6px;
-  border: none;
-  background: #ddd;
+  border: 1px solid rgba(149, 1, 1, 0.4);
   cursor: pointer;
   font-size: 16px;
+  transition: 0.2s;
+  background: rgba(149, 1, 1, 0.2);
+  color: #fff;
+}
+.repeat-count button:hover {
+  background: rgba(149, 1, 1, 0.4);
 }
 
 .repeat-count input {
@@ -115,30 +164,23 @@
   font-size: 14px;
   padding: 6px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(149, 1, 1, 0.4);
+  background: rgba(149, 1, 1, 0.1);
+  color: inherit;
 }
 
-/* Dark mode repeat count */
-.app.dark .repeat-count button {
-  background: #444;
-  color: #fff;
-}
-
-.app.dark .repeat-count input {
-  background: #2a2a40;
-  color: #f5f5f5;
-  border: 1px solid #555;
-}
-
-/* Bottom actions */
+/* =======================
+   Bottom actions
+======================= */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 18px;
+  gap: 12px;
 }
 
 .create-btn {
-  background: #4caf50;
+  background: rgba(149, 1, 1, 0.7);
   color: white;
   padding: 10px 24px;
   border: none;
@@ -146,32 +188,17 @@
   font-size: 15px;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.25s;
+}
+.create-btn:hover {
+  background: rgba(149, 1, 1, 0.9);
 }
 
-.create-btn:hover {
-  background: #45a049;
-}
-/* Modal box */
-.modal-content {
-  width: 60%;              /* smaller width */
-  max-width: 600px;        /* tighter max width */
-  max-height: 85vh;        /* fits inside viewport */
-  overflow-y: auto;        /* scroll if too tall */
-  padding: 20px;
-  border-radius: 16px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.3);
-}
-/* Make description bigger */
-.modal-content textarea {
-  min-height: 100px;   /* bigger height */
-  resize: vertical;    /* allow user to resize if they want */
-}
+/* =======================
+   Error message
+======================= */
 .error {
-  color: #ff4d4f;
+  color: #950101;
   font-size: 12px;
   margin-top: 2px;
 }
